@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+
 	"log"
 	"net"
 )
@@ -13,5 +13,5 @@ func main() {
 	}
 	defer conn.Close()
 
-	fmt.Fprintln(conn, "I dialed you.")
+	//fmt.Fprintln(conn, "I dialed you.")
 }

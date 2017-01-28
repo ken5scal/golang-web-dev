@@ -7,6 +7,7 @@ import (
 	"net"
 )
 
+// Educational
 func main() {
 	li, err := net.Listen("tcp", ":8080")
 	if err != nil {
@@ -21,6 +22,7 @@ func main() {
 			continue
 		}
 
+		// Writing back to connection
 		io.WriteString(conn, "\nHello from TCP server\n")
 		fmt.Fprintln(conn, "How is your day?")
 		fmt.Fprintf(conn, "%v", "Well, I hope!")
