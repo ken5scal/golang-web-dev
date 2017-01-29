@@ -39,5 +39,12 @@ func serve(c net.Conn) {
 		}
 	}
 	fmt.Println("Code got here.")
-	io.WriteString(c, "I see you connected.\n")
+	//io.WriteString(c, "I see you connected.\n")
+	body := "I see you connected"
+	// I dont see difference between fmt.fprint and io.writestring
+	fmt.Fprint(c, "HTTP/1.1 200 OK\r\n")
+	fmt.Fprintf(c, "Content-Length: %d\r\n", len(body))
+	io.WriteString(c, "Content-Type: text/plain\r\n")
+	io.WriteString(c, "\r\n")
+	io.WriteString(c, body)
 }
