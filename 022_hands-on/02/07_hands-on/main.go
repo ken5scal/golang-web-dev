@@ -23,7 +23,6 @@ func main() {
 		}
 
 		go serve(c)
-		io.WriteString(c, "I see you connected.\n")
 	}
 }
 
@@ -40,4 +39,5 @@ func serve(c net.Conn) {
 		}
 	}
 	fmt.Println("Code got here.")
+	io.WriteString(c, "I see you connected.\n")
 }
