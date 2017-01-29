@@ -22,19 +22,22 @@ func main() {
 			continue
 		}
 
-		s := bufio.NewScanner(c)
-		for s.Scan() {
-			ln := s.Text()
-			if ln == "" {
-				// End of HTTP HEADER
-				break
-			}
-			fmt.Println(ln)
-		}
-
-		fmt.Println("Code got here.")
+		go serve(c)
 		io.WriteString(c, "I see you connected.\n")
-
-		c.Close()
 	}
+}
+
+func serve(c net.Conn) {
+	defer c.Close()
+
+	s := bufio.NewScanner(c)
+	for s.Scan() {
+		ln := s.Text()
+		fmt.Println(ln)
+		if ln == "" {
+			// End of HTTP HEADER
+			break
+		}
+	}
+	fmt.Println("Code got here.")
 }
