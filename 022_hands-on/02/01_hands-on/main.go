@@ -24,7 +24,11 @@ func main() {
 
 		s := bufio.NewScanner(c)
 		for s.Scan() {
-			fmt.Println(s.Text())
+			ln := s.Text()
+			if ln == "" {
+				break
+			}
+			fmt.Println(ln)
 		}
 		defer c.Close()
 
