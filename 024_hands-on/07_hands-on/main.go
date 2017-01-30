@@ -15,7 +15,7 @@ func init() {
 func main() {
 	fs := http.FileServer(http.Dir("public"))
 	http.HandleFunc("/", dogs)
-	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
+	http.Handle("/resources/", http.StripPrefix("/resources", fs))
 	log.Fatalln(http.ListenAndServe(":8080",nil))
 }
 
