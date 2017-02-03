@@ -9,6 +9,6 @@ func main() {
 	http.ListenAndServe(":8080", nil)
 }
 
-func incrementCookie(res http.Response, req *http.Request) {
+func incrementCookie(res http.ResponseWriter, req *http.Request) {
 
 }
