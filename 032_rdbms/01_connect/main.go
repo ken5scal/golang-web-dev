@@ -6,7 +6,6 @@ import (
 	//_ "github.com/go-sql-driver/mysql"
 	"io"
 	"net/http"
-	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
 	"github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
 )
 

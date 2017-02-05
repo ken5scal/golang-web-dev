@@ -6,17 +6,21 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"io"
 	"net/http"
+	"github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
 )
 
 var db *sql.DB
 var err error
 
 func main() {
-	db, err = sql.Open("mysql", "awsuser:mypassword@tcp(mydbinstance.cakwl95bxza0.us-west-1.rds.amazonaws.com:3306)/test02?charset=utf8")
-	check(err)
+	//db, err = sql.Open("mysql", "awsuser:mypassword@tcp(mydbinstance.cakwl95bxza0.us-west-1.rds.amazonaws.com:3306)/test02?charset=utf8")
+	db, err = mysql.DialPassword("INSTANCE NAME", "root", "PASSWORD")
 	defer db.Close()
 
 	err = db.Ping()
+	check(err)
+
+	_, err = db.Exec(fmt.Sprintf("USE %s", "test02"))
 	check(err)
 
 	http.HandleFunc("/", index)
