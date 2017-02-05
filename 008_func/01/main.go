@@ -31,6 +31,8 @@ var fm = template.FuncMap{
 }
 
 func init() {
+	// tpl = template.must(template.Parsefiles("Files"))
+	// tpl = tpl.Funcs(fm) wont work
 	tpl = template.Must(template.New("").Funcs(fm).ParseFiles("tpl.gohtml"))
 }
 

@@ -25,6 +25,7 @@ func main() {
 }
 
 func handle(conn net.Conn) {
+	// read from connection
 	scanner := bufio.NewScanner(conn)
 	for scanner.Scan() {
 		ln := scanner.Text()
