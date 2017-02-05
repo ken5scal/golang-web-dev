@@ -3,9 +3,11 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
+	//_ "github.com/go-sql-driver/mysql"
 	"io"
 	"net/http"
+	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
+	"github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
 )
 
 var db *sql.DB
@@ -13,7 +15,13 @@ var err error
 
 func main() {
 	// user:password@tcp(localhost:5555)/dbname?charset=utf8
-	db, err = sql.Open("mysql", "awsuser:mypassword@tcp(mydbinstance.cakwl95bxza0.us-west-1.rds.amazonaws.com:3306)/test02?charset=utf8")
+	// AWS
+	//db, err = sql.Open(
+	//	"mysql",
+	//	"root:@tcp(Host/IP:3306)/test02?charset=utf8")
+
+	// GCP
+	db, err := mysql.DialPassword("CONNECTION INSTANCE NAME", "root", "Password")
 	check(err)
 	defer db.Close()
 
@@ -22,7 +30,7 @@ func main() {
 
 	http.HandleFunc("/", index)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
-	err := http.ListenAndServe(":8080", nil)
+	err = http.ListenAndServe(":8080", nil)
 	check(err)
 }
 
