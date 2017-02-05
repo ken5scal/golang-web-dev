@@ -21,7 +21,7 @@ func main() {
 	//	"root:@tcp(Host/IP:3306)/test02?charset=utf8")
 
 	// GCP
-	db, err := mysql.DialPassword("CONNECTION INSTANCE NAME", "root", "Password")
+	db, err = mysql.DialPassword("CONNECTION INSTANCE NAME", "root", "Password")
 	check(err)
 	defer db.Close()
 
@@ -30,7 +30,7 @@ func main() {
 
 	http.HandleFunc("/", index)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
-	err = http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8080", nil)
 	check(err)
 }
 
