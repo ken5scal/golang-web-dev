@@ -4,7 +4,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"gopkg.in/mgo.v2"
 	"net/http"
-	"github.com/GoesToEleven/golang-web-dev/042_mongodb/05_mongodb/04_update-user-controllers-get/controllers"
+	"github.com/golang-web-dev/042_mongodb/05_mongodb/04_update-user-controllers-get/controllers"
 )
 
 func main() {
