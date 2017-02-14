@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
-	"github.com/GoesToEleven/golang-web-dev/042_mongodb/03_post-delete/models"
+	"github.com/golang-web-dev/042_mongodb/03_post-delete/models"
 )
 
 func main() {
