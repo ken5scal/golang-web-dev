@@ -3,19 +3,26 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/GoesToEleven/golang-web-dev/040_mongodb/06_hands-on/starting-code/models"
 	"github.com/julienschmidt/httprouter"
-	"gopkg.in/mgo.v2"
+	//"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"net/http"
+	"github.com/golang-web-dev/042_mongodb/06_hands-on/starting-code/models"
 )
 
+var Users = make(map[string]models.User) // userId -> User
+
 type UserController struct {
-	session *mgo.Session
+	//session *mgo.Session
+
 }
 
-func NewUserController(s *mgo.Session) *UserController {
-	return &UserController{s}
+//func NewUserController(s *mgo.Session) *UserController {
+//	return &UserController{s}
+//}
+
+func NewUserController() *UserController {
+	return &UserController{}
 }
 
 func (uc UserController) GetUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -32,10 +39,12 @@ func (uc UserController) GetUser(w http.ResponseWriter, r *http.Request, p httpr
 	oid := bson.ObjectIdHex(id)
 
 	// composite literal
-	u := models.User{}
+	//u := models.User{}
 
 	// Fetch user
-	if err := uc.session.DB("go-web-dev-db").C("users").FindId(oid).One(&u); err != nil {
+	//if err := uc.session.DB("go-web-dev-db").C("users").FindId(oid).One(&u); err != nil {
+	u, ok := Users[oid.String()];
+	if !ok {
 		w.WriteHeader(404)
 		return
 	}
@@ -57,7 +66,8 @@ func (uc UserController) CreateUser(w http.ResponseWriter, r *http.Request, _ ht
 	u.Id = bson.NewObjectId()
 
 	// store the user in mongodb
-	uc.session.DB("go-web-dev-db").C("users").Insert(u)
+	//uc.session.DB("go-web-dev-db").C("users").Insert(u)
+	Users[u.Id.String()] = u
 
 	uj, _ := json.Marshal(u)
 
@@ -75,12 +85,12 @@ func (uc UserController) DeleteUser(w http.ResponseWriter, r *http.Request, p ht
 	}
 
 	oid := bson.ObjectIdHex(id)
-
+	delete(Users, oid.String())
 	// Delete user
-	if err := uc.session.DB("go-web-dev-db").C("users").RemoveId(oid); err != nil {
-		w.WriteHeader(404)
-		return
-	}
+	//if err := uc.session.DB("go-web-dev-db").C("users").RemoveId(oid); err != nil {
+	//	w.WriteHeader(404)
+	//	return
+	//}
 
 	w.WriteHeader(http.StatusOK) // 200
 	fmt.Fprint(w, "Deleted user", oid, "\n")

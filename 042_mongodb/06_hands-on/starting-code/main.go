@@ -1,16 +1,20 @@
 package main
 
 import (
-	"github.com/GoesToEleven/golang-web-dev/040_mongodb/06_hands-on/starting-code/controllers"
 	"github.com/julienschmidt/httprouter"
 	"gopkg.in/mgo.v2"
 	"net/http"
+	"github.com/golang-web-dev/042_mongodb/06_hands-on/starting-code/controllers"
 )
+
+var Session = make(map[string]string) // sessionId -> userId
+
 
 func main() {
 	r := httprouter.New()
 	// Get a UserController instance
-	uc := controllers.NewUserController(getSession())
+	//uc := controllers.NewUserController(getSession())
+	uc := controllers.NewUserController()
 	r.GET("/user/:id", uc.GetUser)
 	r.POST("/user", uc.CreateUser)
 	r.DELETE("/user/:id", uc.DeleteUser)
