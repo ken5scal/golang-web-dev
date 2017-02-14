@@ -7,7 +7,7 @@ import (
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"net/http"
-	"github.com/GoesToEleven/golang-web-dev/042_mongodb/05_mongodb/05_update-user-controllers-delete/models"
+	"github.com/golang-web-dev/042_mongodb/05_mongodb/05_update-user-controllers-delete/models"
 )
 
 type UserController struct {
